@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - ГолосовойКалендарь</title>
+    <style>
+        /* Базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            scroll-behavior: smooth;
+            background: #f7fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Цветовая палитра в зелено-голубых тонах */
+        :root {
+            --primary: #38b2ac;
+            --primary-light: #4fd1c5;
+            --primary-dark: #319795;
+            --secondary: #68d391;
+            --secondary-light: #9ae6b4;
+            --accent: #81e6d9;
+            --background: #f7fafc;
+            --surface: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --error: #e53e3e;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .register-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .register-subtitle {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--surface);
+            color: var(--text);
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.1);
+        }
+
+        .errorlist {
+            list-style: none;
+            margin-top: 0.5rem;
+            padding: 0;
+        }
+
+        .errorlist li {
+            color: var(--error);
+            font-size: 0.875rem;
+            padding: 0.5rem;
+            background: rgba(229, 62, 62, 0.1);
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+        }
+
+        .messages {
+            margin-bottom: 1.5rem;
+        }
+
+        .messages li {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            list-style: none;
+        }
+
+        .messages .success {
+            background: rgba(104, 211, 145, 0.2);
+            color: #22543d;
+            border: 1px solid var(--secondary);
+        }
+
+        .tariff-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .tariff-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .tariff-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .tariff-option {
+            position: relative;
+        }
+
+        .tariff-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .tariff-option label {
+            display: block;
+            padding: 1rem;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: normal;
+        }
+
+        .tariff-option input[type="radio"]:checked + label {
+            border-color: var(--primary);
+            background: rgba(56, 178, 172, 0.1);
+            box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.1);
+        }
+
+        .tariff-option label:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .tariff-name {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .tariff-price {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-family: inherit;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 178, 172, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .login-link a:hover {
+            color: var(--primary-dark);
+        }
+
+        .help-text {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .back-link a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link a:hover {
+            color: var(--primary);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .register-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .register-title {
+                font-size: 1.5rem;
+            }
+
+            .tariff-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <div class="logo">🎤 ГолосовойКалендарь</div>
+            <h1 class="register-title">Регистрация</h1>
+            <p class="register-subtitle">Создайте аккаунт и начните управлять расписанием голосом</p>
+        </div>
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if form.non_field_errors %}
+        <ul class="errorlist">
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form method="post" action="/register/">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                <ul class="errorlist">
+                    {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if form.username.help_text %}
+                <p class="help-text">{{ form.username.help_text }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Пароль</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                <ul class="errorlist">
+                    {% for error in form.password1.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if form.password1.help_text %}
+                <p class="help-text">{{ form.password1.help_text }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Подтверждение пароля</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                <ul class="errorlist">
+                    {% for error in form.password2.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if form.password2.help_text %}
+                <p class="help-text">{{ form.password2.help_text }}</p>
+                {% endif %}
+            </div>
+
+            <div class="tariff-section">
+                <div class="tariff-title">Выберите тариф</div>
+                <div class="tariff-options">
+                    <div class="tariff-option">
+                        <input type="radio" id="trial" name="tariff" value="trial" checked>
+                        <label for="trial">
+                            <div class="tariff-name">🎁 Пробный</div>
+                            <div class="tariff-price">1₽/месяц</div>
+                        </label>
+                    </div>
+                    <div class="tariff-option">
+                        <input type="radio" id="standard" name="tariff" value="standard">
+                        <label for="standard">
+                            <div class="tariff-name">⭐ Стандарт</div>
+                            <div class="tariff-price">299₽/месяц</div>
+                        </label>
+                    </div>
+                    <div class="tariff-option">
+                        <input type="radio" id="pro" name="tariff" value="pro">
+                        <label for="pro">
+                            <div class="tariff-name">🚀 PRO</div>
+                            <div class="tariff-price">599₽/месяц</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        </form>
+
+        <div class="login-link">
+            Уже есть аккаунт? <a href="/login/">Войти</a>
+        </div>
+
+        <div class="back-link">
+            <a href="/">← Вернуться на главную</a>
+        </div>
+    </div>
+</body>
+</html>
