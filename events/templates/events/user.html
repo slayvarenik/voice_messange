@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой календарь - ГолосовойКалендарь</title>
+    <link rel="stylesheet" href="static/user-style.css" />
+</head>
+<body>
+    <div class="messages-container">
+        <div class="message-item success">Добро пожаловать в календарь!</div>
+    </div>
+    
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="user-info">
+                <div class="user-avatar">👤</div>
+                <div class="user-name">Иван Иванов</div>
+                <div class="user-email">ivan@example.com</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-title">Управление</div>
+                <div class="nav-buttons">
+                    <button class="nav-btn active" data-view="calendar">
+                        <span class="nav-text">Календарь</span>
+                    </button>
+                    <button class="nav-btn" data-view="add-event">
+                        <span class="nav-text">Добавить событие</span>
+                    </button>
+                    <button class="nav-btn" data-view="important">
+                        <span class="nav-text">Важные</span>
+                    </button>
+                    <button class="nav-btn" data-view="upcoming">
+                        <span class="nav-text">Ближайшие</span>
+                    </button>
+                    <button class="nav-btn" data-view="analytics">
+                        <span class="nav-text">Аналитика времени</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="voice-section">
+                <button class="voice-btn" id="voiceCommand">
+                    <span class="voice-text">Голосовая команда</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Основная область -->
+        <div class="main-content">
+            <div class="calendar-header">
+                <div class="calendar-nav">
+                    <button class="nav-arrow" id="prevMonth">‹</button>
+                    <div class="current-month" id="currentMonth">Декабрь 2024</div>
+                    <button class="nav-arrow" id="nextMonth">›</button>
+                </div>
+                
+                <div class="view-buttons">
+                    <button class="view-btn" data-view="month">Месяц</button>
+                    <button class="view-btn active" data-view="week">Неделя</button>
+                    <button class="view-btn" data-view="day">День</button>
+                </div>
+
+                <div class="header-actions">
+                    <button class="action-btn" id="searchBtn">🔍</button>
+                    <button class="action-btn" id="settingsBtn">⚙️</button>
+                    <button class="action-btn" id="logoutBtn">🚪</button>
+                </div>
+            </div>
+
+            <!-- Календарь -->
+            <div class="calendar-container">
+                <div class="calendar-grid" id="calendarGrid">
+                    <div class="calendar-header-day">ПН</div>
+                    <div class="calendar-header-day">ВТ</div>
+                    <div class="calendar-header-day">СР</div>
+                    <div class="calendar-header-day">ЧТ</div>
+                    <div class="calendar-header-day">ПТ</div>
+                    <div class="calendar-header-day">СБ</div>
+                    <div class="calendar-header-day">ВС</div>
+                    
+                    <!-- Ноябрь -->
+                    <div class="calendar-day other-month">25</div>
+                    <div class="calendar-day other-month">26</div>
+                    <div class="calendar-day other-month">27</div>
+                    <div class="calendar-day other-month">28</div>
+                    <div class="calendar-day other-month">29</div>
+                    <div class="calendar-day other-month">30</div>
+                    
+                    <!-- Декабрь -->
+                    <div class="calendar-day">
+                        <div class="day-number">1</div>
+                        <div class="events-list">
+                            <div class="event-item meeting">Совещание 10:00</div>
+                        </div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">2</div>
+                    </div>
+                    <div class="calendar-day today">
+                        <div class="day-number">3</div>
+                        <div class="events-list">
+                            <div class="event-item work important">⭐ Дедлайн проекта</div>
+                            <div class="event-item personal">Обед с коллегами</div>
+                        </div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">4</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">5</div>
+                        <div class="events-list">
+                            <div class="event-item other">Встреча с клиентом</div>
+                        </div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">6</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">7</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">8</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">9</div>
+                        <div class="events-list">
+                            <div class="event-item personal">Посещение врача</div>
+                        </div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">10</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">11</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">12</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">13</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">14</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">15</div>
+                        <div class="events-list">
+                            <div class="event-item work">Презентация</div>
+                        </div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">16</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">17</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">18</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">19</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">20</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">21</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">22</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">23</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">24</div>
+                        <div class="events-list">
+                            <div class="event-item personal important">⭐ Подготовка к празднику</div>
+                        </div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">25</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">26</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">27</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">28</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">29</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">30</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">31</div>
+                        <div class="events-list">
+                            <div class="event-item personal important">⭐ Новогодняя ночь</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Добавить событие</h2>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+            <form id="eventForm">
+                <div class="form-group">
+                    <label for="eventTitle">Название события</label>
+                    <input type="text" id="eventTitle" class="form-control" placeholder="Введите название события" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventDate">Дата</label>
+                        <input type="date" id="eventDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTime">Время</label>
+                        <input type="time" id="eventTime" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventCategory">Категория</label>
+                    <select id="eventCategory" class="form-control">
+                        <option value="meeting">Встреча</option>
+                        <option value="personal">Личное</option>
+                        <option value="work">Работа</option>
+                        <option value="important">Важное</option>
+                        <option value="other">Другое</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventLocation">Место</label>
+                    <input type="text" id="eventLocation" class="form-control" placeholder="Где будет проходить событие">
+                </div>
+
+                <div class="form-group">
+                    <label for="eventDescription">Описание</label>
+                    <textarea id="eventDescription" class="form-control" rows="3" placeholder="Дополнительная информация о событии"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="eventImportant">
+                        <span class="checkmark"></span>
+                        Важное событие
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="eventNotification">
+                        <span class="checkmark"></span>
+                        Напомнить за 15 минут
+                    </label>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" id="cancelEvent">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить событие</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="quick-add-panel" id="quickAddPanel">
+        <div class="quick-add-header">
+            <h3>Быстрое добавление</h3>
+            <button class="close-quick-add" id="closeQuickAdd">×</button>
+        </div>
+        <input type="text" id="quickEventInput" class="quick-input" placeholder="Введите название события...">
+        <button class="btn btn-primary" id="saveQuickEvent">Добавить</button>
+    </div>
+    <script src="scripts/user-script.js"></script>
+</body>
+</html>
